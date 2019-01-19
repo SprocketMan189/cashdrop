@@ -1,6 +1,13 @@
 package com.example.cashdrop;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +18,21 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class FindUsers extends AppCompatActivity {
+public class FindUsers extends AppCompatActivity{
     Button signOutBtn;
     TextView userName;
+    TextView latitudeView;
+    TextView longitudeView;
+
+    LocationManager locationManager;
+    String locationProvider;
+
+    double latitude;
+    double longitude;
+
+    //testing purposes
+    String lat;
+    String lon;
 
     // reference for the fireBase auth library
     private FirebaseAuth mAuth;
@@ -28,7 +47,21 @@ public class FindUsers extends AppCompatActivity {
         //get a reference to the FireBase auth object
         mAuth = FirebaseAuth.getInstance();
 
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }else{
+            // does nothing?
+        }
+
         signOutBtn = (Button) findViewById(R.id.signoutBtn);
+        latitudeView = (TextView) findViewById(R.id.latitudeView);
+        longitudeView = (TextView) findViewById(R.id.longitudeView);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locationProvider = LocationManager.GPS_PROVIDER;
+        locationManager.requestLocationUpdates(locationProvider, 5000, 0, locationListener);
+
 
         // log out button
         signOutBtn.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +70,7 @@ public class FindUsers extends AppCompatActivity {
                 signUserOut();
             }
         });
+
     }
 
 
@@ -82,6 +116,36 @@ public class FindUsers extends AppCompatActivity {
             startActivity(signInIntent);
         }
     }
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            lat = Double.toString(latitude);
+            lon = Double.toString(longitude);
+
+            latitudeView.setText(lat);
+            longitudeView.setText(lon);
+
+            // update the database with the new gps coordinate of the user
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
 
 
 }
