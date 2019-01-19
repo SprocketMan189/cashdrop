@@ -59,8 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // if user is not currently signed in, it will be null
                 if (user != null) {
                     // if signing in was successful then go to navigation page
-//                    Intent navIntent = new Intent(LoginActivity.this, navigation.class);
-//                    startActivity(navIntent);
+                    Intent navIntent = new Intent(LoginActivity.this, FindUsers.class);
+                    startActivity(navIntent);
 
                 } else {
                     // user is signed out
