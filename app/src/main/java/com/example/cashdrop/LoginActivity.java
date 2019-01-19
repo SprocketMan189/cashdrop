@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.*;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -32,7 +31,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     // Listener that detects changes in the user's current authentication state
     private FirebaseAuth.AuthStateListener mAuthListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         };
+
     }
 
     /**
@@ -78,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onStart() {
         super.onStart();
         //make sure the Auth state listener is active
-        mAuth.addAuthStateListener(mAuthListener);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -210,7 +209,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             Toast.makeText(LoginActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
                         }
-//                        updateStatus(); // after user signs in - updates the status
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

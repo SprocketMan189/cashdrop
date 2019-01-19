@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FindUsers extends AppCompatActivity{
     Button signOutBtn;
@@ -38,6 +41,13 @@ public class FindUsers extends AppCompatActivity{
     private FirebaseAuth mAuth;
     // Listener that detects changes in the user's current authentication state
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    // For Database
+    private DatabaseReference mDatabaseReference;
+
+    //user email
+    private String userEmail;
+    private String tempEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +72,6 @@ public class FindUsers extends AppCompatActivity{
         locationProvider = LocationManager.GPS_PROVIDER;
         locationManager.requestLocationUpdates(locationProvider, 5000, 0, locationListener);
 
-
         // log out button
         signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +89,14 @@ public class FindUsers extends AppCompatActivity{
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+
+        if (currentUser != null) {
+            userEmail = currentUser.getEmail();
+            // FireBase Database
+            Log.d("USER_EMAIL", userEmail);
+            tempEmail = userEmail.replace('.', '-');
+            mDatabaseReference = FirebaseDatabase.getInstance().getReference("Users/" + tempEmail);
+        }
     }
 
     @Override
@@ -128,6 +145,9 @@ public class FindUsers extends AppCompatActivity{
             longitudeView.setText(lon);
 
             // update the database with the new gps coordinate of the user
+            mDatabaseReference.child("Latitude").setValue(lat);
+            mDatabaseReference.child("Longitude").setValue(lon);
+
         }
 
         @Override
