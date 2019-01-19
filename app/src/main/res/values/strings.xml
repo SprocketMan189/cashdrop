@@ -13,4 +13,5 @@
     <string name="your_email_address">Your Email Address:</string>
     <string name="enter_email">Enter email</string>
     <string name="enter_password">Enter Password</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
