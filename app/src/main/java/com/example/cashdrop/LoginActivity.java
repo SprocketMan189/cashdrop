@@ -155,6 +155,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
+
         // Create User account
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
