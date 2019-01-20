@@ -30,7 +30,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".PayToUsers"
-            android:label="Pay To User" />
+            android:label="Pay To User " />
     </application>
 
 </manifest>

@@ -82,9 +82,6 @@ public class FindUsers extends AppCompatActivity {
         signOutBtn = (Button) findViewById(R.id.signoutBtn);
         updateCard = (Button) findViewById(R.id.updateCard);
 
-//        latitudeView = (TextView) findViewById(R.id.latitudeView);
-//        longitudeView = (TextView) findViewById(R.id.longitudeView);
-
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         locationProvider = LocationManager.GPS_PROVIDER;
