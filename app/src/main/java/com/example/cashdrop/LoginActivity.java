@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -23,6 +25,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // UI elements
     private EditText mEmailView;
     private EditText mPasswordView;
+
+//    private DatabaseReference mDatabaseReference;
+
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref;
+
+    private String userEmail;
+    private String tempEmail;
 
     /*
      * FireBase Auth variables
@@ -78,6 +88,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         //make sure the Auth state listener is active
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            userEmail = currentUser.getEmail();
+            // FireBase Database
+            Log.d("USER_EMAIL", userEmail);
+            tempEmail = userEmail.replace('.', '-');
+            ref = database.getReference("Users/" + tempEmail);
+
+        }
+
     }
 
     @Override
@@ -166,6 +186,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // This will get a reference to the current user
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                            DatabaseReference defaultPost = ref.child("Balance");
+                            defaultPost.setValue("0"); //when create account balance is $0
                             clean();
                         } else {
                             Toast.makeText(LoginActivity.this, "Account creation failed", Toast.LENGTH_SHORT).show();
