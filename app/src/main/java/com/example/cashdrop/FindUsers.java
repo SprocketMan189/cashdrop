@@ -100,7 +100,7 @@ public class FindUsers extends AppCompatActivity {
         updateCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(FindUsers.this, creditCardUpdate.class));
             }
         });
 
