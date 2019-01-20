@@ -1,6 +1,7 @@
 package com.example.cashdrop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +11,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Activity;
+
+
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
+
+
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>  {
 
     private static final String TAG = "RecyclerViewAdapter";
 
@@ -71,6 +78,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 temp = temp.replace('-', '.');
                 Log.d(TAG, "onClick: clicked on: " + temp);
                 Toast.makeText(mContext, temp, Toast.LENGTH_SHORT).show();
+
+                Intent userIntent = new Intent(mContext, PayToUsers.class);
+                userIntent.putExtra("Username", temp);
+                mContext.startActivity(userIntent);
+
             }
         });
     }
@@ -80,4 +92,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return mCloseBy.size();
     }
+
+
 }
