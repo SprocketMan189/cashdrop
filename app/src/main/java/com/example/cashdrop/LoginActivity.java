@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btnSignIn:
                 signUserIn();
-
                 break;
 
             case R.id.btnCreate:

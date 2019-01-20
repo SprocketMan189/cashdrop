@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/latitude"
+        android:text="Latitude"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
@@ -41,7 +41,7 @@
         android:layout_height="21dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="50dp"
-        android:text="@string/longitude"
+        android:text="Longitude"
         app:layout_constraintStart_toEndOf="@+id/latitudeView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,6 +73,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 </android.support.constraint.ConstraintLayout>
