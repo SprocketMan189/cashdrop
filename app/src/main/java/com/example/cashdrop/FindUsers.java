@@ -34,6 +34,7 @@ import java.util.Map;
 
 public class FindUsers extends AppCompatActivity {
     Button signOutBtn;
+    Button updateCard;
     TextView userName;
 //    TextView latitudeView;
 //    TextView longitudeView;
@@ -79,6 +80,7 @@ public class FindUsers extends AppCompatActivity {
         }
 
         signOutBtn = (Button) findViewById(R.id.signoutBtn);
+        updateCard = (Button) findViewById(R.id.updateCard);
 
 //        latitudeView = (TextView) findViewById(R.id.latitudeView);
 //        longitudeView = (TextView) findViewById(R.id.longitudeView);
@@ -93,6 +95,12 @@ public class FindUsers extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUserOut();
+            }
+        });
+        updateCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
