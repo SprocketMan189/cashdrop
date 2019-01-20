@@ -35,8 +35,8 @@ import java.util.Map;
 public class FindUsers extends AppCompatActivity {
     Button signOutBtn;
     TextView userName;
-    TextView latitudeView;
-    TextView longitudeView;
+//    TextView latitudeView;
+//    TextView longitudeView;
 
     LocationManager locationManager;
     String locationProvider;
@@ -80,8 +80,8 @@ public class FindUsers extends AppCompatActivity {
 
         signOutBtn = (Button) findViewById(R.id.signoutBtn);
 
-        latitudeView = (TextView) findViewById(R.id.latitudeView);
-        longitudeView = (TextView) findViewById(R.id.longitudeView);
+//        latitudeView = (TextView) findViewById(R.id.latitudeView);
+//        longitudeView = (TextView) findViewById(R.id.longitudeView);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -96,7 +96,6 @@ public class FindUsers extends AppCompatActivity {
             }
         });
 
-//        initRecyclerView();
 
     }
 
@@ -110,8 +109,8 @@ public class FindUsers extends AppCompatActivity {
             lat = Double.toString(latitude);
             lon = Double.toString(longitude);
 
-            latitudeView.setText(lat);
-            longitudeView.setText(lon);
+//            latitudeView.setText(lat);
+//            longitudeView.setText(lon);
 
             // update the database with the new gps coordinate of the user
             mDatabaseReference.child("Latitude").setValue(lat);
