@@ -1,6 +1,5 @@
 package com.example.cashdrop;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,7 +20,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,10 +34,10 @@ import java.util.Map;
 
 public class FindUsers extends AppCompatActivity {
     Button signOutBtn;
-    Button venmoBtn;
+    Button updateCard;
     TextView userName;
-    TextView latitudeView;
-    TextView longitudeView;
+//    TextView latitudeView;
+//    TextView longitudeView;
 
     LocationManager locationManager;
     String locationProvider;
@@ -82,11 +80,7 @@ public class FindUsers extends AppCompatActivity {
         }
 
         signOutBtn = (Button) findViewById(R.id.signoutBtn);
-
-        //Stop here for button
-
-        latitudeView = (TextView) findViewById(R.id.latitudeView);
-        longitudeView = (TextView) findViewById(R.id.longitudeView);
+        updateCard = (Button) findViewById(R.id.updateCard);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -100,6 +94,13 @@ public class FindUsers extends AppCompatActivity {
                 signUserOut();
             }
         });
+        updateCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FindUsers.this, creditCardUpdate.class));
+            }
+        });
+
 
     }
 
@@ -113,8 +114,8 @@ public class FindUsers extends AppCompatActivity {
             lat = Double.toString(latitude);
             lon = Double.toString(longitude);
 
-            latitudeView.setText(lat);
-            longitudeView.setText(lon);
+//            latitudeView.setText(lat);
+//            longitudeView.setText(lon);
 
             // update the database with the new gps coordinate of the user
             mDatabaseReference.child("Latitude").setValue(lat);
@@ -241,33 +242,7 @@ public class FindUsers extends AppCompatActivity {
         }
     }
 
-    public static void checkClick(View v){
 
-    }
-//
-//    public void onBraintreeSubmit(View v) {
-//        DropInRequest dropInRequest = new DropInRequest()
-//                .clientToken("eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJkMjU1MTg5NDI5NWQyN2I2NWRiNTEwMWFjOWFhYWFjMmVlYzA5MDA2NTVjMjMwMzNlNTZlYTJhYzNjOGRlMzRkfGNyZWF0ZWRfYXQ9MjAxOS0wMS0yMFQwMDo0MTowMi44Mzg3NzEwODYrMDAwMFx1MDAyNm1lcmNoYW50X2lkPTM0OHBrOWNnZjNiZ3l3MmJcdTAwMjZwdWJsaWNfa2V5PTJuMjQ3ZHY4OWJxOXZtcHIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJncmFwaFFMIjp7InVybCI6Imh0dHBzOi8vcGF5bWVudHMuc2FuZGJveC5icmFpbnRyZWUtYXBpLmNvbS9ncmFwaHFsIiwiZGF0ZSI6IjIwMTgtMDUtMDgifSwiY2hhbGxlbmdlcyI6W10sImVudmlyb25tZW50Ijoic2FuZGJveCIsImNsaWVudEFwaVVybCI6Imh0dHBzOi8vYXBpLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb206NDQzL21lcmNoYW50cy8zNDhwazljZ2YzYmd5dzJiL2NsaWVudF9hcGkiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tLzM0OHBrOWNnZjNiZ3l3MmIifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6dHJ1ZSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZGJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=")
-//                .collectDeviceData(true);
-//        startActivityForResult(dropInRequest.getIntent(this), 69);
-//    }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == 69) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                DropInResult result = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
-//
-//
-//                // use the result to update your UI and send the payment method nonce to your server
-//            } else if (resultCode == Activity.RESULT_CANCELED) {
-//                // the user canceled
-//            } else {
-//                // handle errors here, an exception may be available in
-//                Exception error = (Exception) data.getSerializableExtra(DropInActivity.EXTRA_ERROR);
-//            }
-//        }
-//    }
 
     public boolean isCloseToAnotherLocation(double longitude, double latitude, double range){
         if(distanceFromNewLocation(longitude, latitude, this.longitude, this.latitude) < range){
